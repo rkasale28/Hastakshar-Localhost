@@ -1,0 +1,76 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <title>HastAkshar | Profile</title>
+
+    <link rel="stylesheet" href="/static/css/styles.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+    <script src="https://smtpjs.com/v3/smtp.js"> </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+</head>
+{% if user.is_authenticated %}
+<body style="background-image: url('../static/images/wall.jpg');background-position: center; background-size: cover;">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <ul class="navbar-nav navbar-left">
+                <li><a>
+                        <img src="{%static 'images/logo.jpg'%}" width="40" style="border-radius: 50%">
+                    </a></li>
+                <li class="nav-item"><a class="navbar-brand" href="/"
+                        style="margin-left: 10px;">&nbsp;<b>Home</b></a></li>
+                <li class="nav-item"><a class="navbar-brand" href="#" style="margin-left: 73px;">
+                        <div id="clockbox"></div></a></li>
+            </ul>            
+            <ul class="nav navbar-nav navbar-right">
+                <li class="nav-link"><a style="color: white; margin-right:20px;" href="../view_profile/">नमस्ते,
+                        <i><b>{{user.username}}</b></i></a></li>
+                <li class="nav-item"><a class="btn btn-outline-primary " style="border-radius: 100px;"
+                        href="/logout/">Logout&nbsp;<i class="fa fa-sign-out" style="font-size:18px;"></i></a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container d-flex justify-content-center" style="padding: 10px;">
+        <div class="text-center">
+            <img src="{{user.user.profile_picture.url}}" width="250" class="rounded-circle"
+                style=" box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+            <h3 class="mt-2">{{ user.first_name }} {{ user.last_name }}</h3>
+            <span class="mt-1 clearfix">{{ user.email }} <i class="fa fa-check-circle"
+                    style="font-size:15px;color:green"></i></span>
+
+            <!-- <span class="mt-1 clearfix">Add more here</span>  -->
+            <!-- <small class="mt-4">I am an android developer working at google Inc at california,USA</small> -->
+        </div>
+    </div>
+    <script type="text/javascript" src="{%static 'js/time.js'%}"></script>
+    {% else %}
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container-fluid">
+                <ul class="navbar-nav navbar-left">
+                    <li><a>
+                            <img src="{%static 'images/logo.jpg'%}" width="40" style="border-radius: 50%">
+                        </a></li>
+                    <li class="nav-item"><a class="navbar-brand" href="/"
+                            style="margin-left: 10px;">&nbsp;<b><i>HastAkshar</i></b></a></li>                    
+                </ul>
+   
+             </div>
+        </nav>
+    <br>
+    <p style="text-align:center; color: red">Login error! Kindly <a href="/login/">Login</a> first, to continue!
+    </p>
+    {% endif %}
+
+    <footer>
+        <p>Made with &#128151 by <i>Team HastAkshar</i></p>
+    </footer>
+</body>
+
+</html>

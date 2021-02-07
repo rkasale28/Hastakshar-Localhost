@@ -1,0 +1,42 @@
+.main {
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 40px;
+    padding: 10px 10px 10px 10px;
+}
+
+body{
+    padding-bottom: 25px;
+}
+
+footer{
+    position: fixed; 
+    bottom:0px; 
+    display:flex; 
+    text-align:center; 
+    align-items: center;
+    width: 100%;
+    background-color: whitesmoke;
+}
+
+table{    
+    padding: 10px 10px 25px 10px;
+    text-align: center;
+}
+
+.warning{
+    color: #dc3545;
+}
+
+ul.messages{
+    list-style-type: none;
+}
+
+.success{
+    color: #28a745
+}   
+
+.asteriskField{
+    color: #dc3545;
+    font-weight: bold;
+}

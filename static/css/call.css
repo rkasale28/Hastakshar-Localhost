@@ -1,0 +1,117 @@
+.content {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  height: 100vh;
+  overflow-y: hidden;
+}
+
+.content video {
+  height: 100%;
+  width: 100%;
+  /* object-fit: fill; */
+  display: block;
+  transform: rotateY(180deg);
+  -webkit-transform: rotateY(180deg);
+}
+
+.content .overlay {
+  display: none;
+  width: 100%;
+  min-height: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  background-color: #000000;
+}
+
+.content img {
+  width: 30%;
+  border-radius: 50%;
+  padding: 5px;
+}
+
+#sender-video {
+  width: 100%;
+  min-height: 41%;
+}
+
+#reciever-video {
+  width: 71%;
+  margin-top: auto;
+  margin-left: auto;
+  margin-bottom: auto;
+  margin-right: auto;
+}
+
+#reciever-video .content .overlay {
+  height: 600px;
+}
+
+.sent_msg {
+  background-color: #188efd;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  text-align: right;
+  padding: 10px;
+  margin-top: 10px;
+  margin-right: 5px;
+  max-width: 60%;
+  align-self: flex-end;
+  overflow-wrap: break-word;
+}
+
+.recieved_msg {
+  background-color: #e5e5ea;
+  border-top-right-radius: 30px;
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
+  text-align: left;
+  padding: 10px;
+  margin-top: 10px;
+  margin-left: 5px;
+  max-width: 60%;
+  align-self: flex-start;
+  overflow-wrap: break-word;
+}
+
+#add_user {
+  position: absolute;
+  /* left: 20px; */
+  bottom: 16px;
+  border-radius: 100px;
+}
+
+#audio {
+  position: absolute;
+  left: 40%;
+  bottom: 16px;
+  border-radius: 100px;
+}
+
+#leave_room {
+  position: absolute;
+  left: 48%;
+  bottom: 16px;
+  border-radius: 100px;
+}
+
+#video {
+  position: absolute;
+  left: 56%;
+  bottom: 16px;
+  border-radius: 100px;
+}
+
+.footer {
+  position: fixed;
+  bottom: 0px;
+  display: flex;
+  align-items: center;
+  height: 10vh;
+  width: 100%;
+}
