@@ -210,6 +210,7 @@ const connectToNewUser = function (userId, stream) {
 };
 
 const createVideoElement = function (video) {
+  const bool = video.id == "sender" 
   const temp_id = video.id == "sender" ? myPeer.id : video.id;
 
   const myDiv_parent = document.createElement("div");
@@ -228,13 +229,19 @@ const createVideoElement = function (video) {
 
       const myDiv_child = document.createElement("div");
       myDiv_child.classList.add("overlay");
-      myDiv_child.innerHTML = `<img src="${src}">\
+
+      if (bool){
+        myDiv_child.innerHTML = `<img src="${src}" style="width:30%;height:30%">\
                 <h6>${content}</h6>`;
+      }
+      else{
+        myDiv_child.innerHTML = `<img src="${src}" style="width:20%;height:20%">\
+                <h5>${content}</h5>`;
+      }
+      
 
       myDiv_parent.append(myDiv_child);
       myDiv_parent.append(video);
-
-      // myDiv_parent.classList.add(video.classList.item(0))
     },
   });
   return myDiv_parent;

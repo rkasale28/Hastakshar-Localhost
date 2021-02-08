@@ -11,8 +11,8 @@ body {
 .content video {
   height: 100%;
   width: 100%;
-  /* object-fit: fill; */
-  display: block;
+  object-fit: cover;
+  display: flex;
   transform: rotateY(180deg);
   -webkit-transform: rotateY(180deg);
 }
@@ -29,26 +29,24 @@ body {
 }
 
 .content img {
-  width: 30%;
+  object-fit: cover;
   border-radius: 50%;
   padding: 5px;
 }
 
 #sender-video {
   width: 100%;
-  min-height: 41%;
+  min-height: 40%;
+  max-height: 40%;
 }
 
 #reciever-video {
-  width: 71%;
+  width: 70%;
+  height: 95%;
   margin-top: auto;
   margin-left: auto;
   margin-bottom: auto;
   margin-right: auto;
-}
-
-#reciever-video .content .overlay {
-  height: 600px;
 }
 
 .sent_msg {
