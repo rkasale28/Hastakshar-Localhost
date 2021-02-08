@@ -12,7 +12,8 @@
   object-fit: cover;
   display: flex;
   transform: rotateY(180deg);
-  -webkit-transform:rotateY(180deg); 
+  -webkit-transform:rotateY(180deg);   
+  border-radius: 5px;
 }
 
 .content .overlay {
@@ -34,10 +35,10 @@
 }
 
 .content p {
-  margin-top: 5px;
-  font-style: bold;
+  letter-spacing: 1px;
   color: white;
-  font-size:large;
+  font-family: 'Amiko';
+  font-weight: bold;
 }
 
 h4 {
