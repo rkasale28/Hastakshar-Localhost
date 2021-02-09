@@ -87,6 +87,9 @@ $(document).ready(function () {
       });
 
       socket.on("createMessage", function (dict) {
+        $("#intro").removeClass("d-flex");
+        $("#intro").addClass("d-none");
+        
         $("#messages").append(
           `<div class="text-left ml-2 recieved_msg">${dict.message}</div>`
         );
