@@ -43,8 +43,12 @@
             <div class="d-flex w-25 flex-column flex-grow-1 bg-light">
                 <div id="sender-video" class="bg-dark"></div>
 
-                <div id="chat_section" class='flex-grow-1' style="overflow-y: scroll; overflow-x:hidden">
-                    <h4 style="text-align: center; padding:5px">Chat</h4>
+                <div id="chat_section" class='flex-grow-1' style="overflow-y: auto; overflow-x:hidden">
+                    <div id="intro" class="d-flex align-items-center text-center justify-content-center" style="min-height: 100%;">
+                        <h4 class="text-muted font-italic">Messages will appear here
+                        </h4>
+                    </div>
+
                     <div id="messages" class="d-flex flex-column">
 
                     </div>
@@ -59,9 +63,8 @@
                     </div>
                 </div>
             </div>
-
-
         </div>
+
         <div class="footer bg-light">
             <div>
                 <button id="add_user" class="btn btn-light" data-toggle="modal" data-target="#myModal">

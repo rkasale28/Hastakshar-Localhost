@@ -75,7 +75,10 @@ $(document).ready(function () {
 
       let text = $("#chat_message");
       $("#chat_message").keydown(function (e) {
-        if (e.which == 13 && text.val().length !== 0) {
+        if (e.which == 13 && text.val().length !== 0) {          
+          $("#intro").removeClass("d-flex");
+          $("#intro").addClass("d-none");
+          
           socket.emit("message", { message: text.val(), room: roomId });
           $("#messages").append(`<div class="sent_msg">${text.val()}</div>`);
           scrolltoBottom();
@@ -193,6 +196,9 @@ $(document).ready(function () {
   });
 
   $("#send_msg").click(function(){
+    $("#intro").removeClass("d-flex");
+    $("#intro").addClass("d-none");
+
     let text = $("#chat_message");
     if (text.val().length !== 0) {
       socket.emit("message", { message: text.val(), room: roomId });
