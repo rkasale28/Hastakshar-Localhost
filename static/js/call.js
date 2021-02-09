@@ -50,8 +50,9 @@ $(document).ready(function () {
 
       myPeer.on("call", (call) => {
         call.answer(stream);
-        socket.emit("initial_video", {
+        socket.emit("initial_status", {
           video: $.cookie("video_" + username) === "true",
+          audio: $.cookie("audio_" + username) === "true"
         });
 
         const video = document.createElement("video");
@@ -63,7 +64,7 @@ $(document).ready(function () {
         // Recipient's video stream
         call.on("stream", (userVideoStream) => {
           if (!peers[call.peer]) {
-            addVideoStream(div, userVideoStream, reciever.video);
+            addVideoStream(div, userVideoStream, reciever.video, reciever.audio);
           }
         });
       });
@@ -125,7 +126,6 @@ $(document).ready(function () {
   myPeer.on("open", function (id) {
     sender = id;
     socket.emit("get_clients", { roomId: roomId, userId: id });
-    // socket.emit('join_room', { roomId: roomId, userId: id });
   });
 
   socket.on("detect-status", function (data) {
@@ -205,8 +205,9 @@ const connectToNewUser = function (userId, stream) {
   console.log(userId);
 
   const call = myPeer.call(userId, stream);
-  socket.emit("initial_video", {
+  socket.emit("initial_status", {
     video: $.cookie("video_" + username) === "true",
+    audio: $.cookie("audio_" + username) === "true"
   });
 
   const video = document.createElement("video");
@@ -217,7 +218,7 @@ const connectToNewUser = function (userId, stream) {
 
   // Recipient's Video Stream
   call.on("stream", (userVideoStream) => {
-    addVideoStream(div, userVideoStream, reciever.video);
+    addVideoStream(div, userVideoStream, reciever.video, reciever.audio);
   });
 
   call.on("close", () => {
