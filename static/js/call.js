@@ -46,7 +46,7 @@ $(document).ready(function () {
       myVideoStream.getVideoTracks()[0].enabled = video_enabled;
       $("#video").html(video_map.get(video_enabled));
 
-      addVideoStream(myDiv, stream, video_enabled);
+      addVideoStream(myDiv, stream, video_enabled, audio_enabled);
 
       myPeer.on("call", (call) => {
         call.answer(stream);
@@ -144,6 +144,8 @@ $(document).ready(function () {
 
     $.cookie("audio_" + username, myVideoStream.getAudioTracks()[0].enabled);
     $("#audio").html(audio_map.get(!audio_enabled));
+
+    display("#sender .mic", audio_enabled)
   });
 
   $("#video").click(function () {
@@ -210,11 +212,16 @@ const connectToNewUser = function (userId, stream) {
 };
 
 const createVideoElement = function (video) {
-  const bool = video.id == "sender" 
+  const bool = video.id == "sender"
   const temp_id = video.id == "sender" ? myPeer.id : video.id;
 
   const myDiv_parent = document.createElement("div");
   myDiv_parent.classList.add("content");
+
+  const img = document.createElement("img")
+  img.src = `${mic_url}`
+  img.classList.add("mic")
+  img.style = "z-index: 3; position: relative; width:30px; height:30px; bottom: 30px;"
 
   $.ajax({
     url: "../ajax/get_data/",
@@ -230,26 +237,28 @@ const createVideoElement = function (video) {
       const myDiv_child = document.createElement("div");
       myDiv_child.classList.add("overlay");
 
-      if (bool){
+      if (bool) {
         myDiv_child.innerHTML = `<img src="${src}" style="width:30%;height:30%">\
                 <h6>${content}</h6>`;
       }
-      else{
+      else {
         myDiv_child.innerHTML = `<img src="${src}" style="width:20%;height:20%">\
                 <h5>${content}</h5>`;
       }
-      
 
       myDiv_parent.append(myDiv_child);
       myDiv_parent.append(video);
+      myDiv_parent.append(img);
+
     },
   });
   return myDiv_parent;
 };
 
-const addVideoStream = function (div, stream, status = null) {
+const addVideoStream = function (div, stream, video_status = null, audio_status = null) {
   video = div.getElementsByTagName("video")[0];
   overlay = div.getElementsByClassName("overlay")[0];
+  mic = div.getElementsByClassName("mic")[0];
 
   if (video.hasAttribute("id")) {
     div.setAttribute("id", video.id);
@@ -261,14 +270,18 @@ const addVideoStream = function (div, stream, status = null) {
       video.play();
     });
 
-    if (status != null) {
-      if (status) {
+    if (video_status != null) {
+      if (video_status) {
         video.style.display = "flex";
         overlay.style.display = "none";
       } else {
         video.style.display = "none";
         overlay.style.display = "flex";
       }
+    }
+
+    if (audio_status != null) {
+      mic.style.display = (audio_status) ? "none" : "block"
     }
 
     if (div.id == "sender") {
