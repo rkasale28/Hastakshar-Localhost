@@ -257,7 +257,7 @@ const createVideoElement = function (video) {
   const img = document.createElement("img")
   img.src = `${mic_url}`
   img.classList.add("mic")
-  img.style = bool ? "z-index: 3; position: relative; width:30px; height:30px; bottom: 30px;" : "z-index: 3; position: relative; width:50px; height:50px; bottom: 50px;"
+  img.style = bool ? "z-index: 3; position: relative; width:30px; height:30px; bottom: 30px;" : "z-index: 3; position: relative; width:40px; height:40px; bottom: 40px;"
 
   $.ajax({
     url: "../ajax/get_data/",
