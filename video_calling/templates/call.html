@@ -50,16 +50,14 @@
                     </div>
                 </div>
 
-                <div id="chat_input" style="padding: 5px;">
-
+                <div id="chat_input" style="padding: 5px;" class="input-group">
                     <input id="chat_message" type="text" placeholder="Type message here..." class="form-control">
-                    <!-- <button id="send_msg" class="btn btn-light" >
-                        <img src="{%static 'images/send.png'%}" width="25" height="25">
-                    </button> -->
-
+                    <div class="input-group-append">
+                        <button id="send_msg" class="btn btn-light">
+                            <img src="{%static 'images/send.png'%}" height="20">
+                        </button>
+                    </div>
                 </div>
-
-
             </div>
 
 
@@ -119,7 +117,7 @@
         if (roomId == null) {
             alert("Access Prohibited");
             window.location.href = "/";
-        }        
+        }
 
         var myPeer = new Peer(id = user_id)
 

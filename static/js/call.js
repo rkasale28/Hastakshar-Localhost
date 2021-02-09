@@ -192,6 +192,16 @@ $(document).ready(function () {
     socket.emit("leave", { roomId: roomId });
   });
 
+  $("#send_msg").click(function(){
+    let text = $("#chat_message");
+    if (text.val().length !== 0) {
+      socket.emit("message", { message: text.val(), room: roomId });
+      $("#messages").append(`<div class="sent_msg">${text.val()}</div>`);
+      scrolltoBottom();
+      text.val("");
+    }
+  });
+
   window.onunload = function (e) {
     socket.emit("leave", { roomId: roomId });
   };
