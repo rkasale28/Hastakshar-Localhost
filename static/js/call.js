@@ -93,7 +93,7 @@ $(document).ready(function () {
         window.location.href = data.url;
       });
 
-      socket.on("change_status", function (data) {
+      socket.on("change_video_status", function (data) {
         userId = "#" + data.userId + " ";
 
         if (data.status) {
@@ -102,6 +102,16 @@ $(document).ready(function () {
         } else {
           $(userId + "video").css("display", "none");
           $(userId + ".overlay").css("display", "flex");
+        }
+      });
+
+      socket.on("change_audio_status", function (data) {
+        userId = "#" + data.userId + " ";
+        
+        if (data.status) {
+          $(userId + ".mic").css("display", "none");
+        } else {
+          $(userId + ".mic").css("display", "flex");
         }
       });
     });
@@ -146,6 +156,12 @@ $(document).ready(function () {
     $("#audio").html(audio_map.get(!audio_enabled));
 
     display("#sender .mic", audio_enabled)
+
+    socket.emit("toggle_audio", {
+      roomId: roomId,
+      userId: myPeer.id,
+      status: !audio_enabled,
+    });
   });
 
   $("#video").click(function () {
@@ -221,7 +237,7 @@ const createVideoElement = function (video) {
   const img = document.createElement("img")
   img.src = `${mic_url}`
   img.classList.add("mic")
-  img.style = "z-index: 3; position: relative; width:30px; height:30px; bottom: 30px;"
+  img.style = bool ? "z-index: 3; position: relative; width:30px; height:30px; bottom: 30px;" : "z-index: 3; position: relative; width:50px; height:50px; bottom: 50px;"
 
   $.ajax({
     url: "../ajax/get_data/",
@@ -249,7 +265,6 @@ const createVideoElement = function (video) {
       myDiv_parent.append(myDiv_child);
       myDiv_parent.append(video);
       myDiv_parent.append(img);
-
     },
   });
   return myDiv_parent;

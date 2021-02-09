@@ -140,7 +140,12 @@ def join_room(sid,message):
 
     @sio.event
     def toggle_video(sid, data):
-        sio.emit('change_status', data=data,room=data['roomId'],skip_sid=sid)
+        sio.emit('change_video_status', data=data,room=data['roomId'],skip_sid=sid)
+    
+    @sio.event
+    def toggle_audio(sid, data):
+        sio.emit('change_audio_status', data=data,room=data['roomId'],skip_sid=sid)
+
 
 
 
