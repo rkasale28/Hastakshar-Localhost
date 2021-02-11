@@ -127,3 +127,16 @@ def email(request):
 
 def view_profile(request):	
 	return render(request,'main/view_profile.html')
+
+def edit_submit(request):
+	if request.method == 'POST':
+		initial_profile_pic=request.user.user.profile_picture.url
+		initial_profile_pic=initial_profile_pic.replace('/media/', '')
+		profile_pic=request.FILES['profile_picture'] if 'profile_picture' in request.FILES else initial_profile_pic
+		
+		profile = User.objects.get(user=request.user)
+		profile.profile_picture=profile_pic
+		profile.save()
+		return redirect('/view_profile')
+	else:
+		return redirect('/view_profile')
