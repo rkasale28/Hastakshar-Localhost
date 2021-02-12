@@ -49,6 +49,9 @@
                     style="font-size:15px;color:green"></i></span>
             <button type="button" class="btn btn-success m-3" data-toggle="modal" data-target="#myModal">Update Profile
                 Picture</button>
+            <button type="button" class="btn btn-success m-3" data-toggle="modal" onclick="sendEmail()"
+                data-target="#myModal2">Reset
+                Password</button>
         </div>
     </div>
 
@@ -67,7 +70,95 @@
                         <input type="file" name="profile_picture" accept="image/*"
                             class="clearablefileinput form-control-file" required id="id_profile_picture">
 
-                        <button type="submit" class="btn btn-success m-3" style="float: right; display: inline">Update</button>
+                        <button type="submit" class="btn btn-success m-3"
+                            style="float: right; display: inline">Update</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="myModal2" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Reset Password</h5>
+                </div>
+                <div class="modal-body">
+                    <form action="reset_password_submit/" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <input type="hidden" id="id_username" value="{{user.username}}" readonly disabled>
+
+                        <input type="hidden" name="otp1" id="otp1">
+
+                        <div id="div_id_otp" class="form-group">
+                            <label for="otp2" class=" requiredField">
+                                Enter OTP
+                                <span class="asteriskField">*</span>
+                            </label>
+                            <div class="">
+                                <input type="password" name="otp2" minlength="5" maxlength="5"
+                                    class="textinput textInput form-control" required id="otp2">
+                            </div>
+                            <div>
+                                <ul class="text-danger messages">
+                                    <li id="otp-error-1" style="display: none;">OTP cannot be blank</li>
+                                    <li id="otp-error-2" style="display: none;">OTP doesn't match</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <input type="button" class="btn btn-success" value="Verify OTP" onclick="enterPassword()"
+                        id="submit_button" disabled style="border-radius: 100px; margin-top: 5px;" />
+
+                        <div id="div_id_password1" class="form-group" style="display: none;">
+                            <label for="id_password1" class=" requiredField">
+                                Password
+                                <span class="asteriskField">*</span>
+                            </label>
+                            <div class="">
+                                <input type="password" name="password1" maxlength="25"
+                                    class="textinput textInput form-control" required id="id_password1">
+                            </div>
+    
+                            <div>
+                                <ul class="text-danger messages">
+                                    <li id="password-error-1" style="display: none;">Password cannot be blank</li>
+                                    <li id="password-error-2" style="display: none;">New Password cannot be the same as
+                                        previous password!</li>
+                                </ul>
+                                <ul class="text-primary messages">
+                                    <li id="password-error-3">Password should contain atleast one upper Case alphabet</li>
+                                    <li id="password-error-4">Password should contain atleast one lower Case alphabet</li>
+                                    <li id="password-error-5">Password should contain atleast one digit</li>
+                                    <li id="password-error-6">Password should contain atleast one special character</li>
+                                    <li id="password-error-7">Password should contain atleast six characters</li>
+                                </ul>
+                            </div>
+                        </div>
+    
+                        <div id="div_id_password2" class="form-group" style="display: none;">
+                            <label for="id_password2" class=" requiredField">
+                                Confirm Password
+                                <span class="asteriskField">*</span>
+                            </label>
+                            <div class="">
+                                <input type="password" name="password2" maxlength="25"
+                                    class="textinput textInput form-control" required id="id_password2">
+                            </div>
+                            <div>
+                                <ul class="text-danger messages">
+                                    <li id="password2-error-1" style="display: none;">Confirm Password cannot be blank</li>
+                                    <li id="password2-error-2" style="display: none;">Passwords don't match</li>
+                                </ul>
+                            </div>
+                        </div>
+    
+                        <button type="submit" class="btn btn-success" id="submit" disabled
+                            style="display:none; border-radius: 100px; margin-top: 5px;">Reset Password</button>
                     </form>
                 </div>
             </div>
@@ -75,6 +166,8 @@
     </div>
 
     <script type="text/javascript" src="{%static 'js/time.js'%}"></script>
+    <script type="text/javascript" src="{%static 'js/common.js'%}"></script>
+    <script type="text/javascript" src="{%static 'validation/forgot.js'%}"></script>
     {% else %}
 
     <body>

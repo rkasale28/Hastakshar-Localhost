@@ -113,7 +113,13 @@ function match(){
     var bool = password1 == "" || 
     password2=="" || 
     password1!=password2 ||
-    $('#password-error-2').css('display') == 'block'
+    $('#password-error-2').css('display') == 'block' ||
+    $('#password-error-3').css('display') == 'block' ||
+    $('#password-error-4').css('display') == 'block' ||
+    $('#password-error-5').css('display') == 'block' ||
+    $('#password-error-6').css('display') == 'block' ||
+    $('#password-error-7').css('display') == 'block'
+
 
     display("#password2-error-2",(!(password1 == "" || password2=="") && password1!=password2))
     enable("#submit",bool)

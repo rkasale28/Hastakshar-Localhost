@@ -97,6 +97,7 @@ def forgot_submit(request):
 		user = hUser.objects.get(username=username)
 		user.set_password(pwd)
 		user.save()
+		messages.success(request, 'Password reset successfully')
 		return redirect('/login')
 	else:
 		return redirect('/login')
@@ -138,5 +139,19 @@ def edit_submit(request):
 		profile.profile_picture=profile_pic
 		profile.save()
 		return redirect('/view_profile')
+	else:
+		return redirect('/view_profile')
+
+def reset_password_submit(request):
+	if (request.method=='POST'):
+		username = request.user.username
+		pwd = request.POST["password1"]
+
+		user = hUser.objects.get(username=username)
+		user.set_password(pwd)
+		user.save()
+
+		messages.success(request, 'Password reset successfully. Please login with new password.')
+		return redirect('/login')
 	else:
 		return redirect('/view_profile')
