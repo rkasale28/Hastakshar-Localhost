@@ -19,7 +19,7 @@
 </head>
 {% if user.is_authenticated %}
 
-<body style="background-image: url('../static/images/wall.jpg');background-position: center; background-size: cover;">
+<body style="background-image: url('../static/images/wall.jpg');background-position: center; background-size: cover; background-repeat:no-repeat">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
             <ul class="navbar-nav navbar-left">
@@ -47,15 +47,14 @@
             <h3 class="mt-2">{{ user.first_name }} {{ user.last_name }}</h3>
             <span class="mt-1 clearfix">{{ user.email }} <i class="fa fa-check-circle"
                     style="font-size:15px;color:green"></i></span>
-
-            <button type="button" class="btn btn-success custom-btn" data-toggle="modal" data-target="#myModal">Update
-                Profile
-                Picture</button>
-            <button type="button" class="btn btn-success custom-btn" data-toggle="modal" onclick="sendEmail()"
-                data-target="#myModal2">Reset Password</button>
-            <button type="button" class="btn btn-success custom-btn" data-toggle="modal" data-target="#myModal3">Update
-                Email</button>
-
+            <br><br><br>
+            <button type="button" style="border-radius: 100px;"   class="btn btn-success custom-btn" data-toggle="modal" data-target="#myModal">
+                Update Profile Picture</button>
+            <button type="button" style="border-radius: 100px;" class="btn btn-success custom-btn" data-toggle="modal" onclick="sendEmail()"
+                data-target="#myModal2">Update Password</button>
+            <button type="button" style="border-radius: 100px;" class="btn btn-success custom-btn" data-toggle="modal" data-target="#myModal3">
+                Update Email Address</button>
+                <br><br><br><br>    
         </div>
     </div>
 
@@ -75,7 +74,7 @@
                             class="clearablefileinput form-control-file" required id="id_profile_picture">
 
                         <button type="submit" class="btn btn-success m-3"
-                            style="float: right; display: inline">Update</button>
+                            style="float: right; display: inline; border-radius: 100px;">Change Picture</button>
                     </form>
                 </div>
             </div>
@@ -89,7 +88,7 @@
             <!-- Modal content-->
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Reset Password</h5>
+                    <h5 class="modal-title">Update Password</h5>
                 </div>
                 <div class="modal-body">
                     <form action="reset_password_submit/" method="POST" enctype="multipart/form-data">
@@ -205,7 +204,7 @@
                             </div>
                         </div>
 
-                        <input type="button" class="btn btn-info" value="Verify Email" onclick="verifyEmail()" id="otp_button"
+                        <input type="button" class="btn btn-success" value="Verify Email" onclick="verifyEmail()" id="otp_button"
                         style="border-radius: 100px; margin-top: 5px;" disabled/>
 
                         <input type="hidden" name="otp1_1" id="otp1_1">
