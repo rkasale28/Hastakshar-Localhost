@@ -29,7 +29,7 @@ urlpatterns = [
     path('forgot_password/',views.forgot_password,name="forgot_password"),
     path('forgot_submit',views.forgot_submit,name="forgot_submit"),
     path('view_profile/',views.view_profile,name="view_profile"),
-    path('view_profile/edit_submit/',views.edit_submit,name="edit_submit"),
+    path('view_profile/update_profile_pic_submit/',views.update_profile_pic_submit,name="update_profile_pic_submit"),
     path('view_profile/reset_password_submit/',views.reset_password_submit,name="reset_password_submit"),
 
     path('ajax/validate_email/', ajax.validate_email, name='validate_email'),

@@ -129,7 +129,7 @@ def email(request):
 def view_profile(request):	
 	return render(request,'main/view_profile.html')
 
-def edit_submit(request):
+def update_profile_pic_submit(request):
 	if request.method == 'POST':
 		initial_profile_pic=request.user.user.profile_picture.url
 		initial_profile_pic=initial_profile_pic.replace('/media/', '')
