@@ -155,3 +155,16 @@ def reset_password_submit(request):
 		return redirect('/login')
 	else:
 		return redirect('/view_profile')
+
+def update_email_submit(request):
+	if (request.method=='POST'):
+		username = request.POST["username"]
+		mail = request.POST["email"]
+		
+		user = hUser.objects.get(username=username)
+		user.email = mail
+		user.save()
+
+		return redirect('/view_profile')
+	else:
+		return redirect('/view_profile')

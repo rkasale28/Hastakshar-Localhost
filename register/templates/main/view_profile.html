@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
         integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
+    <link rel="stylesheet" href="{% static 'css/profile.css'%}">
 
     <script src="https://smtpjs.com/v3/smtp.js"> </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
@@ -47,15 +47,19 @@
             <h3 class="mt-2">{{ user.first_name }} {{ user.last_name }}</h3>
             <span class="mt-1 clearfix">{{ user.email }} <i class="fa fa-check-circle"
                     style="font-size:15px;color:green"></i></span>
-            <button type="button" class="btn btn-success m-3" data-toggle="modal" data-target="#myModal">Update Profile
+
+            <button type="button" class="btn btn-success custom-btn" data-toggle="modal" data-target="#myModal">Update
+                Profile
                 Picture</button>
-            <button type="button" class="btn btn-success m-3" data-toggle="modal" onclick="sendEmail()"
-                data-target="#myModal2">Reset
-                Password</button>
+            <button type="button" class="btn btn-success custom-btn" data-toggle="modal" onclick="sendEmail()"
+                data-target="#myModal2">Reset Password</button>
+            <button type="button" class="btn btn-success custom-btn" data-toggle="modal" data-target="#myModal3">Update
+                Email</button>
+
         </div>
     </div>
 
-    <!-- Modal -->
+    <!-- Modal for Update Profile Picture -->
     <div class="modal fade" id="myModal" role="dialog">
         <div class="modal-dialog">
 
@@ -78,7 +82,7 @@
         </div>
     </div>
 
-    <!-- Modal -->
+    <!-- Modal for Reset Password -->
     <div class="modal fade" id="myModal2" role="dialog">
         <div class="modal-dialog">
 
@@ -112,7 +116,7 @@
                         </div>
 
                         <input type="button" class="btn btn-success" value="Verify OTP" onclick="enterPassword()"
-                        id="submit_button" disabled style="border-radius: 100px; margin-top: 5px;" />
+                            id="submit_button" disabled style="border-radius: 100px; margin-top: 5px;" />
 
                         <div id="div_id_password1" class="form-group" style="display: none;">
                             <label for="id_password1" class=" requiredField">
@@ -123,7 +127,7 @@
                                 <input type="password" name="password1" maxlength="25"
                                     class="textinput textInput form-control" required id="id_password1">
                             </div>
-    
+
                             <div>
                                 <ul class="text-danger messages">
                                     <li id="password-error-1" style="display: none;">Password cannot be blank</li>
@@ -131,15 +135,17 @@
                                         previous password!</li>
                                 </ul>
                                 <ul class="text-primary messages">
-                                    <li id="password-error-3">Password should contain atleast one upper Case alphabet</li>
-                                    <li id="password-error-4">Password should contain atleast one lower Case alphabet</li>
+                                    <li id="password-error-3">Password should contain atleast one upper Case alphabet
+                                    </li>
+                                    <li id="password-error-4">Password should contain atleast one lower Case alphabet
+                                    </li>
                                     <li id="password-error-5">Password should contain atleast one digit</li>
                                     <li id="password-error-6">Password should contain atleast one special character</li>
                                     <li id="password-error-7">Password should contain atleast six characters</li>
                                 </ul>
                             </div>
                         </div>
-    
+
                         <div id="div_id_password2" class="form-group" style="display: none;">
                             <label for="id_password2" class=" requiredField">
                                 Confirm Password
@@ -151,14 +157,78 @@
                             </div>
                             <div>
                                 <ul class="text-danger messages">
-                                    <li id="password2-error-1" style="display: none;">Confirm Password cannot be blank</li>
+                                    <li id="password2-error-1" style="display: none;">Confirm Password cannot be blank
+                                    </li>
                                     <li id="password2-error-2" style="display: none;">Passwords don't match</li>
                                 </ul>
                             </div>
                         </div>
-    
+
                         <button type="submit" class="btn btn-success" id="submit" disabled
                             style="display:none; border-radius: 100px; margin-top: 5px;">Reset Password</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Update Email -->
+    <div class="modal fade" id="myModal3" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Update Email</h5>
+                </div>
+                <div class="modal-body">
+                    <form action="update_email_submit/" method="POST" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <input type="hidden" id="username" value="{{user.username}}" name="username">
+
+                        <div id="div_id_email" class="form-group">
+                            <label for="id_email" class=" requiredField">
+                                Email Address
+                                <span class="asteriskField">*</span>
+                            </label>
+                            <div class="">
+                                <input type="email" name="email" maxlength="50" class="emailinput form-control" required
+                                    id="id_email">
+                            </div>
+                            <div>
+                                <ul class="text-danger messages">
+                                    <li id="email-error-1" style="display:none;">Email cannot be blank</li>
+                                    <li id="email-error-2" style="display:none">Invalid Email</li>
+                                    <li id="email-error-3" style="display:none">New Email cannot be the same as
+                                        previous email!</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <input type="button" class="btn btn-info" value="Verify Email" onclick="verifyEmail()" id="otp_button"
+                        style="border-radius: 100px; margin-top: 5px;" disabled/>
+
+                        <input type="hidden" name="otp1_1" id="otp1_1">
+
+                    <div id="div_id_otp_1" class="form-group" style="display: none;">
+                        <label for="otp2_1" class=" requiredField">
+                            Enter OTP
+                            <span class="asteriskField">*</span>
+                        </label>
+                        <div class="">
+                            <input type="password" name="otp2_1" minlength="5" maxlength="5"
+                                class="textinput textInput form-control" required id="otp2_1">
+                        </div>
+                        <div>
+                            <ul class="text-danger messages">
+                                <li id="otp-1-error-1" style="display: none;">OTP cannot be blank</li>
+                                <li id="otp-1-error-2" style="display: none;">OTP doesn't match</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-success m-3"
+                            style="float: right; display: none" id="submit_1">Update</button>
                     </form>
                 </div>
             </div>
@@ -168,6 +238,7 @@
     <script type="text/javascript" src="{%static 'js/time.js'%}"></script>
     <script type="text/javascript" src="{%static 'js/common.js'%}"></script>
     <script type="text/javascript" src="{%static 'validation/forgot.js'%}"></script>
+    <script type="text/javascript" src="{%static 'validation/profile.js'%}"></script>
     {% else %}
 
     <body>
