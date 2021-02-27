@@ -1,22 +1,5 @@
 function start() {
     console.log("In Interpretation")
-    dataURL = capture();
-
-    $.ajax({
-        type: 'POST',
-        url: 'interpret',
-        data:{
-            'dataURL':dataURL,
-            'csrfmiddlewaretoken': getCookie('csrftoken')
-        },
-        dataType: 'json',
-        success: function (data) {
-            console.log(data)
-        }
-    });
-}
-
-function capture() {
     var canvas = document.createElement('canvas');
     
     var div = document.getElementById('reciever-video');    
@@ -35,7 +18,18 @@ function capture() {
 
     var dataURL = canvas.toDataURL("image/jpeg", 1.0);
 
-    return dataURL;
+    $.ajax({
+        type: 'POST',
+        url: 'interpret',
+        data:{
+            'dataURL':dataURL,
+            'csrfmiddlewaretoken': getCookie('csrftoken')
+        },
+        dataType: 'json',
+        success: function (data) {
+            console.log(data)
+        }
+    });
 }
 
 function getCookie(name) {
