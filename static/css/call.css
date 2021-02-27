@@ -121,3 +121,9 @@ body {
   height: 10vh;
   width: 100%;
 }
+
+#isl{
+  position: absolute;
+  right: 0;
+  display: none;
+}

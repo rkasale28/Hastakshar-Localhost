@@ -12,6 +12,7 @@ const socket = io('/');
 
 var audio_enabled = $.cookie("audio_" + username) === "true";
 var video_enabled = $.cookie("video_" + username) === "true";
+var isl_enabled = $.cookie("isl_" + username) === "true";
 
 let sender, reciever;
 
@@ -75,10 +76,10 @@ $(document).ready(function () {
 
       let text = $("#chat_message");
       $("#chat_message").keydown(function (e) {
-        if (e.which == 13 && text.val().length !== 0) {          
+        if (e.which == 13 && text.val().length !== 0) {
           $("#intro").removeClass("d-flex");
           $("#intro").addClass("d-none");
-          
+
           socket.emit("message", { message: text.val(), room: roomId });
           $("#messages").append(`<div class="sent_msg">${text.val()}</div>`);
           scrolltoBottom();
@@ -89,7 +90,7 @@ $(document).ready(function () {
       socket.on("createMessage", function (dict) {
         $("#intro").removeClass("d-flex");
         $("#intro").addClass("d-none");
-        
+
         $("#messages").append(
           `<div class="text-left ml-2 recieved_msg">${dict.message}</div>`
         );
@@ -106,15 +107,19 @@ $(document).ready(function () {
         if (data.status) {
           $(userId + "video").css("display", "flex");
           $(userId + ".overlay").css("display", "none");
+          $("#isl").css("display", "block");
         } else {
           $(userId + "video").css("display", "none");
           $(userId + ".overlay").css("display", "flex");
+
+          $.cookie("isl_"+username,false); 
+          $("#isl").css("display", "none");
         }
       });
 
       socket.on("change_audio_status", function (data) {
         userId = "#" + data.userId + " ";
-        
+
         if (data.status) {
           $(userId + ".mic").css("display", "none");
         } else {
@@ -192,13 +197,27 @@ $(document).ready(function () {
     });
   });
 
+  $("#isl").click(function(){
+    isl_enabled = $.cookie("isl_"+username)  === "true";
+    $.cookie("isl_"+username,!isl_enabled); 
+    
+    if (isl_enabled == true){
+      console.log("Stop Interpretation")
+    }else{
+      console.log("Start Interpretation");
+      start();
+    }
+    console.log(!isl_enabled) 
+  })
+
   $("#leave_room").click(function () {
     $.removeCookie("audio_" + username);
     $.removeCookie("video_" + username);
+    $.removeCookie("isl_" + username);
     socket.emit("leave", { roomId: roomId });
   });
 
-  $("#send_msg").click(function(){
+  $("#send_msg").click(function () {
     $("#intro").removeClass("d-flex");
     $("#intro").addClass("d-none");
 
@@ -215,6 +234,7 @@ $(document).ready(function () {
     socket.emit("leave", { roomId: roomId });
   };
 });
+
 const scrolltoBottom = () => {
   var d = $("#chat_section");
   d.scrollTop(d.prop("scrollHeight"));
@@ -320,8 +340,16 @@ const addVideoStream = function (div, stream, video_status = null, audio_status 
     }
 
     if (div.id == "sender") {
-      $("#sender-video").append(div);
+      $("#sender-video").append(div);      
     } else {
+      if (video_status != null) {
+        if (video_status) {
+          $("#isl").css("display", "block");
+        } else {
+          $("#isl").css("display", "none");
+        }
+      }
+      
       $("#reciever-video").append(div);
     }
   }
