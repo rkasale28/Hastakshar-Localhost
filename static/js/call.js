@@ -1,10 +1,14 @@
 var audio_map = new Map([
   [true, `<img src="../static/images/mic.png" width="45%" height="45%">`],
-  [false, `<img src="../static/images/mic_mute.png" width="45%" height="45%">`],
+  [false, `<img src="../static/images/mic_mute.png" width="45%" height="45%">`]
 ]);
 var video_map = new Map([
   [true, `<img src="../static/images/video.png" width="45%" height="45%">`],
-  [false, `<img src="../static/images/video-off.png" width="45%" height="45%">`],
+  [false, `<img src="../static/images/video-off.png" width="45%" height="45%">`]
+]);
+var isl_map = new Map([
+  [true, `Start Interpretation`],
+  [false, `Stop Interpretation`]
 ]);
 const peers = {};
 
@@ -107,12 +111,18 @@ $(document).ready(function () {
         if (data.status) {
           $(userId + "video").css("display", "flex");
           $(userId + ".overlay").css("display", "none");
+          
+          isl_enabled = $.cookie("isl_" + username) === "true";
+          $("#isl").html(isl_map.get(!isl_enabled))
           $("#isl").css("display", "block");
         } else {
           $(userId + "video").css("display", "none");
           $(userId + ".overlay").css("display", "flex");
 
           $.cookie("isl_"+username,false); 
+
+          isl_enabled = $.cookie("isl_" + username) === "true";
+          $("#isl").html(isl_map.get(isl_enabled))
           $("#isl").css("display", "none");
         }
       });
@@ -200,6 +210,7 @@ $(document).ready(function () {
   $("#isl").click(function(){
     isl_enabled = $.cookie("isl_"+username)  === "true";
     $.cookie("isl_"+username,!isl_enabled); 
+    $("#isl").html(isl_map.get(isl_enabled));
     
     if (isl_enabled == true){
       console.log("Stop Interpretation")
@@ -344,8 +355,10 @@ const addVideoStream = function (div, stream, video_status = null, audio_status 
     } else {
       if (video_status != null) {
         if (video_status) {
+          $("#isl").html(isl_map.get(!isl_enabled));
           $("#isl").css("display", "block");
         } else {
+          $("#isl").html(isl_map.get(!isl_enabled));
           $("#isl").css("display", "none");
         }
       }
