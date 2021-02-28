@@ -212,13 +212,7 @@ $(document).ready(function () {
     $.cookie("isl_"+username,!isl_enabled); 
     $("#isl").html(isl_map.get(isl_enabled));
     
-    if (isl_enabled == true){
-      console.log("Stop Interpretation")
-    }else{
-      console.log("Start Interpretation");
-      start();
-    }
-    console.log(!isl_enabled) 
+    capture()
   })
 
   $("#leave_room").click(function () {

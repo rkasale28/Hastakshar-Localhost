@@ -1,16 +1,27 @@
+function capture() {
+    isl_enabled = $.cookie("isl_" + username) === "true";
+
+    if (isl_enabled) {
+        console.log("Start Interpretation");
+        setTimeout(start,1000); 
+    } else {
+        console.log("Stop Interpretation");
+    }
+}
+
 function start() {
-    console.log("In Interpretation")
+    console.log("In Interpretation");
     var canvas = document.createElement('canvas');
-    
-    var div = document.getElementById('reciever-video');    
+
+    var div = document.getElementById('reciever-video');
     var video = div.getElementsByTagName("video")[0];
-    
+
     canvas.width = video.videoWidth;
     canvas.height = video.videoHeight;
 
     var ctx = canvas.getContext('2d');
     ctx.drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
-    
+
     canvas.toBlob(blob => {
         const img = new Image();
         img.src = window.URL.createObjectUrl(blob);
@@ -21,13 +32,25 @@ function start() {
     $.ajax({
         type: 'POST',
         url: 'interpret',
-        data:{
-            'dataURL':dataURL,
+        data: {
+            'dataURL': dataURL,
             'csrfmiddlewaretoken': getCookie('csrftoken')
         },
         dataType: 'json',
         success: function (data) {
-            console.log(data)
+            isl_enabled = $.cookie("isl_" + username) === "true";
+
+            if (isl_enabled) {
+                console.log(data)
+            }
+        },
+        complete:function(data){
+            isl_enabled = $.cookie("isl_" + username) === "true";
+
+            if (isl_enabled) {
+                console.log("Continue Interpretation");                
+                setTimeout(start(),1000);
+            }
         }
     });
 }

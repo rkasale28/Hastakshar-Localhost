@@ -75,7 +75,7 @@ def interpret(request):
 
     num_entities = len(indexes)
 
-    class_id = itemgetter(*indexes)(detections['detection_classes'])
+    class_id = itemgetter(*indexes)(detections['detection_classes']) + label_id_offset
     scores = itemgetter(*indexes)(detections['detection_scores'])
 
     class_name = str(category_index[class_id]['name'])        
