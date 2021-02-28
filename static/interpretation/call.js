@@ -2,9 +2,11 @@ function capture() {
     isl_enabled = $.cookie("isl_" + username) === "true";
 
     if (isl_enabled) {
+        $("#captions").css("display", "flex");
         console.log("Start Interpretation");
         setTimeout(start,1000); 
     } else {
+        $("#captions").css("display", "none");
         console.log("Stop Interpretation");
     }
 }

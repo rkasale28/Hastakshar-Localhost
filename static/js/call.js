@@ -111,15 +111,23 @@ $(document).ready(function () {
         if (data.status) {
           $(userId + "video").css("display", "flex");
           $(userId + ".overlay").css("display", "none");
-          
+
           isl_enabled = $.cookie("isl_" + username) === "true";
-          $("#isl").html(isl_map.get(!isl_enabled))
+          $("#isl").html(isl_map.get(!isl_enabled));
           $("#isl").css("display", "block");
+
+          console.log(isl_enabled)
+          if (!isl_enabled){
+            $("#captions").css("display", "none");
+          }else{
+            $("#captions").css("display", "flex");
+          }
         } else {
           $(userId + "video").css("display", "none");
           $(userId + ".overlay").css("display", "flex");
 
-          $.cookie("isl_"+username,false); 
+          $.cookie("isl_" + username, false);
+          $("#captions").css("display", "none");
 
           isl_enabled = $.cookie("isl_" + username) === "true";
           $("#isl").html(isl_map.get(isl_enabled))
@@ -139,6 +147,8 @@ $(document).ready(function () {
     });
 
   socket.on("user-disconnected", function (dict) {
+    $("#captions").css("display", "none");
+    $("#isl").css("display", "none")
     userId = dict.userId;
     if (peers[userId]) peers[userId].close();
   });
@@ -207,11 +217,11 @@ $(document).ready(function () {
     });
   });
 
-  $("#isl").click(function(){
-    isl_enabled = $.cookie("isl_"+username)  === "true";
-    $.cookie("isl_"+username,!isl_enabled); 
+  $("#isl").click(function () {
+    isl_enabled = $.cookie("isl_" + username) === "true";
+    $.cookie("isl_" + username, !isl_enabled);
     $("#isl").html(isl_map.get(isl_enabled));
-    
+
     capture()
   })
 
@@ -282,8 +292,8 @@ const createVideoElement = function (video) {
   const img = document.createElement("img")
   img.src = `${mic_url}`
   img.classList.add("mic")
-  img.style = bool ? "z-index: 3; position: relative; width:30px; height:30px; bottom: 30px;" : "z-index: 3; position: relative; width:40px; height:40px; bottom: 40px;"
-
+  img.style = bool ? "width:30px; height:30px;" : "width:40px; height:40px;"
+  
   $.ajax({
     url: "../ajax/get_data/",
     data: {
@@ -309,7 +319,21 @@ const createVideoElement = function (video) {
 
       myDiv_parent.append(myDiv_child);
       myDiv_parent.append(video);
-      myDiv_parent.append(img);
+
+      myDiv_child2 = document.createElement('div')
+      myDiv_child2.style = bool ? "z-index:3; position: relative; bottom: 30px" : "display: flex; flex-direction:row; z-index:3 ; position: relative; bottom: 40px"
+      myDiv_child2.append(img);
+
+      if (!bool) {    
+        const overlayText = document.createElement("h6");
+        overlayText.id = "captions";
+        overlayText.classList.add("overlayText")
+        overlayText.innerHTML = 'Captions will appear here';
+        
+        myDiv_child2.append(overlayText);
+      }
+
+      myDiv_parent.append(myDiv_child2);
     },
   });
   return myDiv_parent;
@@ -341,22 +365,30 @@ const addVideoStream = function (div, stream, video_status = null, audio_status 
     }
 
     if (audio_status != null) {
-      mic.style.display = (audio_status) ? "none" : "block"
+      mic.style.display = (audio_status) ? "none" : "inline"
     }
 
     if (div.id == "sender") {
-      $("#sender-video").append(div);      
+      $("#sender-video").append(div);
     } else {
       if (video_status != null) {
         if (video_status) {
-          $("#isl").html(isl_map.get(!isl_enabled));
+          $("#isl").html(isl_map.get(!isl_enabled));          
           $("#isl").css("display", "block");
+
+          console.log(isl_enabled)
+          if (!isl_enabled){
+            $("#captions").css("display", "none");
+          }else{
+            $("#captions").css("display", "flex");
+          }          
         } else {
           $("#isl").html(isl_map.get(!isl_enabled));
           $("#isl").css("display", "none");
+          $("#captions").css("display", "none");
         }
       }
-      
+
       $("#reciever-video").append(div);
     }
   }
