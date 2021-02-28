@@ -7,3 +7,6 @@ __pycache__/
 local_settings.py
 db.sqlite3
 venv/
+video_calling/Tensorflow
+capture.html
+static/images/captured_image.jpeg
