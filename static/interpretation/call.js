@@ -2,17 +2,14 @@ function capture() {
     isl_enabled = $.cookie("isl_" + username) === "true";
 
     if (isl_enabled) {
-        $("#captions").css("display", "flex");
-        console.log("Start Interpretation");
+        $("#captions").css("display", "flex");        
         setTimeout(start,1000); 
     } else {
         $("#captions").css("display", "none");
-        console.log("Stop Interpretation");
     }
 }
 
 function start() {
-    console.log("In Interpretation");
     var canvas = document.createElement('canvas');
 
     var div = document.getElementById('reciever-video');
@@ -43,14 +40,13 @@ function start() {
             isl_enabled = $.cookie("isl_" + username) === "true";
 
             if (isl_enabled) {
-                console.log(data)
+                $("#captions").html(data.caption)
             }
         },
         complete:function(data){
             isl_enabled = $.cookie("isl_" + username) === "true";
 
             if (isl_enabled) {
-                console.log("Continue Interpretation");                
                 setTimeout(start(),1000);
             }
         }

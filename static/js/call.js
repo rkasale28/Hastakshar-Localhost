@@ -116,7 +116,6 @@ $(document).ready(function () {
           $("#isl").html(isl_map.get(!isl_enabled));
           $("#isl").css("display", "block");
 
-          console.log(isl_enabled)
           if (!isl_enabled){
             $("#captions").css("display", "none");
           }else{
@@ -376,7 +375,6 @@ const addVideoStream = function (div, stream, video_status = null, audio_status 
           $("#isl").html(isl_map.get(!isl_enabled));          
           $("#isl").css("display", "block");
 
-          console.log(isl_enabled)
           if (!isl_enabled){
             $("#captions").css("display", "none");
           }else{

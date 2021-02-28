@@ -81,7 +81,7 @@ def interpret(request):
     class_name = str(category_index[class_id]['name'])        
     
     data = {
-        "captions" : class_name
+        "caption" : class_name
     }
 
     return JsonResponse(data)
