@@ -115,9 +115,10 @@ body {
 
 #isl {
   position: absolute;
-  left: 88.5%; 
+  right: 1%; 
   bottom: 16px;
-  border-radius: 100px;
+  border-radius: 100px;  
+  display: none;
 }
 
 .footer {
@@ -127,12 +128,6 @@ body {
   align-items: center;
   height: 10vh;
   width: 100%;
-}
-
-#isl{
-  position: absolute;
-  right: 0;
-  display: none;
 }
 
 .overlayText{
