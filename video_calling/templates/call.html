@@ -124,7 +124,12 @@
             window.location.href = "/";
         }
 
-        var myPeer = new Peer(id = user_id)
+        var myPeer = new Peer(id = user_id,{
+            host: '9000-aquamarine-wildcat-8e2aovvc.ws-us03.gitpod.io',
+            port: '443',
+            path: '/',
+            secure: true
+        })
 
         var mic_url = "{% static 'images/mic_mute.png' %}" 
     </script>
