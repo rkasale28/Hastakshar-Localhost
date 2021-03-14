@@ -2,14 +2,17 @@ function capture() {
     isl_enabled = $.cookie("isl_" + username) === "true";
 
     if (isl_enabled) {
+        console.log("Start Interpretation")
         $("#captions").css("display", "flex");        
         setTimeout(start,1000); 
     } else {
+        console.log("Stop Interpretation")
         $("#captions").css("display", "none");
     }
 }
 
 function start() {
+    console.log("Capturing")
     var canvas = document.createElement('canvas');
 
     var div = document.getElementById('reciever-video');
@@ -27,7 +30,7 @@ function start() {
     });
 
     var dataURL = canvas.toDataURL("image/jpeg", 1.0);
-
+    console.log("Sending AJAX Request")
     $.ajax({
         type: 'POST',
         url: 'interpret',
@@ -44,6 +47,7 @@ function start() {
             }
         },
         complete:function(data){
+            console.log("Another Iteration")
             isl_enabled = $.cookie("isl_" + username) === "true";
 
             if (isl_enabled) {

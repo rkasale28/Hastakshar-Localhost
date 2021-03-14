@@ -217,6 +217,7 @@ $(document).ready(function () {
   });
 
   $("#isl").click(function () {
+    console.log('Button Clicked');
     isl_enabled = $.cookie("isl_" + username) === "true";
     $.cookie("isl_" + username, !isl_enabled);
     $("#isl").html(isl_map.get(isl_enabled));

@@ -113,6 +113,13 @@ body {
   border-radius: 100px;
 }
 
+#isl {
+  position: absolute;
+  left: 88.5%; 
+  bottom: 16px;
+  border-radius: 100px;
+}
+
 .footer {
   position: fixed;
   bottom: 0px;
