@@ -16,15 +16,10 @@ from numpy import asarray
 from operator import itemgetter
 
 WORKSPACE_PATH = 'video_calling/Tensorflow/workspace'
-SCRIPTS_PATH = 'video_calling/Tensorflow/scripts'
-APIMODEL_PATH = 'video_calling/Tensorflow/models'
-ANNOTATION_PATH = WORKSPACE_PATH+'/annotations'
-IMAGE_PATH = WORKSPACE_PATH+'/images'
-MODEL_PATH = WORKSPACE_PATH+'/models'
-PRETRAINED_MODEL_PATH = WORKSPACE_PATH+'/pre-trained-models'
-CONFIG_PATH = MODEL_PATH+'/my_ssd_mobnet/pipeline.config'
-CHECKPOINT_PATH = MODEL_PATH+'/my_ssd_mobnet/'
-CUSTOM_MODEL_NAME = 'my_ssd_mobnet' 
+ANNOTATION_PATH = WORKSPACE_PATH+'/training_demo/annotations'
+MODEL_PATH = WORKSPACE_PATH+'/training_demo/models'
+CONFIG_PATH = MODEL_PATH+'/my_ssd_mobilenet_v2_fpnlite/pipeline.config'
+CHECKPOINT_PATH = MODEL_PATH+'/my_ssd_mobilenet_v2_fpnlite/'
 
 # Load pipeline config and build a detection model
 configs = config_util.get_configs_from_pipeline_file(CONFIG_PATH)
