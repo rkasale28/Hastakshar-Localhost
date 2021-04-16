@@ -64,7 +64,7 @@ def interpret(request):
         print ("Error Encountered")
         class_name = " "
 
-    print ('{} : {}%'.format(class_name, class_id, max_score))
+    print ('{} : {}%'.format(class_name, max_score))
     
     data = {
         "caption" : class_name
